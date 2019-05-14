@@ -1,5 +1,5 @@
 [package]
-name = "pokereval_cactus_rs"
+name = "pokereval_cactus_py"
 version = "0.1.0"
 authors = ["goniX <hargonix@gmail.com>"]
 edition = "2018"
@@ -8,8 +8,7 @@ edition = "2018"
 crate-type = ["cdylib"]
 
 [dependencies]
-rand = "0.6.5"
-itertools = "0.8.0"
+pokereval_cactus = "0.1.2"
 
 [dependencies.pyo3]
 version = "0.7.0-alpha.1"
