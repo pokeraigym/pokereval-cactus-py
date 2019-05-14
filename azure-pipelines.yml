@@ -25,8 +25,8 @@ jobs:
       curl https://sh.rustup.rs -sSf | sh -s -- -y
       source $HOME/.cargo/env
       rustup default nightly
-      pip install pip install pyo3-pack
-      ~/.local/bin/pyo3-pack build --release
+      python -m pip install pip install pyo3-pack
+      pyo3-pack build --release
   - task: PublishPipelineArtifact@0
     inputs:
       artifactName: 'linux_wheel_$(python.version)'
@@ -51,7 +51,7 @@ jobs:
       curl -sSf -o rustup-init.exe https://win.rustup.rs
       rustup-init.exe -y
       rustup default nightly
-      pip install pip install pyo3-pack
+      python -m pip install pip install pyo3-pack
       $(env:LOCALAPPDATA)/pyo3-pack build --release
   - task: PublishPipelineArtifact@0
     inputs:
