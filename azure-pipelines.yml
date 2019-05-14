@@ -1,0 +1,60 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+jobs:
+- job: "wheel-linux"
+  pool:
+    vmImage: "ubuntu-latest"
+  strategy:
+    matrix:
+      Python36:
+        python.version: "3.6"
+      Python37:
+        python.version: "3.7"
+    maxParallel: 2
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '$(python.version)'
+  - script: |
+      curl https://sh.rustup.rs -sSf | sh -s -- -y
+      source $HOME/.cargo/env
+      rustup default nightly
+      pip install pip install pyo3-pack
+      pyo3-pack build --release
+  - task: PublishPipelineArtifact@0
+    inputs:
+      artifactName: '$linux-wheel-(python.version)'
+      targetPath: "target/wheels"
+    displayName: 'build the wheel files'
+  
+- job: "wheel-windows"
+  pool:
+    vmImage: "vs2017-win2016"
+  strategy:
+    matrix:
+      Python36:
+        python.version: "3.6"
+      Python37:
+        python.version: "3.7"
+    maxParallel: 2
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '$(python.version)'
+  - script: |
+      curl -sSf -o rustup-init.exe https://win.rustup.rs
+      rustup-init.exe -y
+      rustup default nightly
+      pip install pip install pyo3-pack
+      pyo3-pack build --release
+  - task: PublishPipelineArtifact@0
+    inputs:
+      artifactName: '$linux-windows-(python.version)'
+      targetPath: "target/wheels"
+    displayName: 'build the wheel files'
