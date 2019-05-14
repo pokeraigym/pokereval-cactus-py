@@ -7,7 +7,7 @@ trigger:
 - master
 
 jobs:
-- job: "wheel-linux"
+- job: "wheel_linux"
   pool:
     vmImage: "ubuntu-latest"
   strategy:
@@ -33,7 +33,7 @@ jobs:
       targetPath: "target/wheels"
     displayName: 'build the wheel files'
   
-- job: "wheel-windows"
+- job: "wheel_windows"
   pool:
     vmImage: "vs2017-win2016"
   strategy:
@@ -55,6 +55,6 @@ jobs:
       pyo3-pack build --release
   - task: PublishPipelineArtifact@0
     inputs:
-      artifactName: '$linux-windows-(python.version)'
+      artifactName: '$windows_(python.version)'
       targetPath: "target/wheels"
     displayName: 'build the wheel files'
