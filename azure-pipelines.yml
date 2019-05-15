@@ -26,7 +26,7 @@ jobs:
       source $HOME/.cargo/env
       rustup default nightly
       python -m pip install pyo3-pack
-      pyo3-pack build --release
+      pyo3-pack build --release --interpreter python
   - task: PublishPipelineArtifact@0
     inputs:
       artifactName: 'linux_wheel_$(python.version)'
@@ -52,7 +52,7 @@ jobs:
       rustup-init.exe -y
       rustup default nightly
       python -m pip install pyo3-pack
-      $(env:LOCALAPPDATA)/pyo3-pack build --release
+      pyo3-pack build --release --interpreter python
   - task: PublishPipelineArtifact@0
     inputs:
       artifactName: 'windows_wheel_$(python.version)'
