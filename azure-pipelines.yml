@@ -50,6 +50,7 @@ jobs:
   - script: |
       curl -sSf -o rustup-init.exe https://win.rustup.rs
       rustup-init.exe -y
+      set PATH=%PATH%;%USERPROFILE%\.cargo\bin
       rustup default nightly
       python -m pip install pyo3-pack
       pyo3-pack build --release --interpreter python
