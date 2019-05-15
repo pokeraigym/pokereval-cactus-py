@@ -1,5 +1,5 @@
 [package]
-name = "pokereval_cactus_py"
+name = "pokereval_cactus"
 version = "0.1.0"
 authors = ["goniX <hargonix@gmail.com>"]
 edition = "2018"
